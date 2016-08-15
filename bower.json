@@ -1,19 +1,7 @@
 {
-  "name": "seed-element",
+  "name": "fort-error",
   "version": "1.0.0",
-  "authors": [
-    "Anonymous <anonymous@example.com>"
-  ],
-  "description": "An element providing a solution to no problem in particular.",
-  "keywords": [
-    "web-component",
-    "polymer",
-    "seed"
-  ],
-  "private": true,
-  "main": "seed-element.html",
-  "license": "MIT",
-  "homepage": "https://github.com/FortifiElements/seed-element/",
+  "main": "fort-error.html",
   "ignore": [
     "/.*",
     "/test/",
@@ -21,7 +9,9 @@
     "/node_modules/"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.6.0"
+    "polymer": "Polymer/polymer#^1.2.0",
+    "iron-icon": "PolymerElements/iron-icon#1.0.9",
+    "fort-animbg": "FortifiElements/fort-animbg"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
