@@ -1,0 +1,198 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+
+<link href="../paper-styles/paper-styles.html" rel="import">
+<link href="../iron-icon/iron-icon.html" rel="import">
+<link href="../iron-icons/iron-icons.html" rel="import">
+<link href="../iron-icons/image-icons.html" rel="import">
+<link href="../iron-icons/av-icons.html" rel="import">
+
+<link href="../fort-animbg/fort-animbg.html" rel="import">
+
+<!--
+A Fortifi error component
+status-code property is the only requirement for this element to work.
+
+Example:
+
+    <fort-error status-code="404" message="Sorry, page not found">
+      <p>Any additional content</p>
+    </fort-error>
+
+@demo demo/index.html
+@hero hero.svg
+-->
+
+<dom-module id="fort-error"
+            status-code="[[statusCode]]"
+            message="[[message]]"
+            color="[[color]]">
+  <template>
+    <style>
+      :host {
+        height: 100%;
+        flex: auto;
+        justify-content: center;
+        align-content: center;
+      }
+
+      :host[status-code="403"] iron-icon,
+      :host[status-code="403"] h1 {
+        color: var(--paper-orange-800);
+      }
+
+      :host[status-code="404"] iron-icon,
+      :host[status-code="404"] h1 {
+        color: var(--paper-blue-500);
+      }
+
+      :host[status-code="500"] iron-icon,
+      :host[status-code="500"] h1 {
+        color: var(--paper-red-500);
+      }
+
+      fort-animbg {
+        padding: 20px;
+      }
+
+      iron-icon {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 10px;
+      }
+
+      iron-icon + div {
+        width: 200px;
+        padding-right: 38px;
+        display: inline-block;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      iron-icon + div > h1 {
+        margin: 0;
+        position: relative;
+        font-size: 90pt;
+        font-weight: 300;
+      }
+
+      iron-icon + div > h2 {
+        margin: 0;
+        display: inline-block;
+        position: absolute;
+        top: 52px;
+        right: -32px;
+        text-transform: uppercase;
+        font-size: 28px;
+        font-weight: 300;
+        transform: rotate(-90deg);
+      }
+
+      fort-animbg > p {
+        margin-top: 0;
+        font-size: 16pt;
+        font-weight: 300;
+      }
+    </style>
+
+    <fort-animbg color="{{color}}" fill>
+      <iron-icon icon="{{icon}}"></iron-icon>
+
+      <div>
+        <h1>{{statusCode}}</h1>
+        <h2>Error</h2>
+      </div>
+
+      <p>{{message}}</p>
+
+      <div>
+        <content></content>
+      </div>
+    </fort-animbg>
+  </template>
+
+  <script>
+    Polymer(
+      {
+        is:             'fort-error',
+        properties:     {
+          statusCode: {
+            type:     String,
+            observer: '_setStatusCode'
+          },
+          message:    {
+            type:     String,
+            observer: '_setMessage'
+          },
+          color:      {
+            type:     String,
+            value:    '#fff',
+            observer: '_setColor'
+          },
+          icon:       {
+            type:     String,
+            observer: '_setIcon'
+          }
+        },
+        _setStatusCode: function (newVal, oldVal)
+                        {
+                          this.statusCode = newVal;
+                          this.icon = this.getIcon();
+                          this.message = this.getMessage();
+                        },
+        _setMessage:    function (newVal, oldVal)
+                        {
+                          this.message = newVal;
+                        },
+        _setIcon:       function (newVal, oldVal)
+                        {
+                          this.icon = this.getIcon();
+                        },
+        _setColor:      function (newVal, oldVal)
+                        {
+                          this.color = newVal || '#fff';
+                        },
+        getMessage:     function ()
+                        {
+                          if(!this.hasAttribute('message'))
+                          {
+                            switch(this.statusCode)
+                            {
+                              case '403':
+                                return 'Access Denied';
+                              case '404':
+                                return 'Sorry, page not found';
+                              case '500':
+                                return 'Server Error';
+                            }
+                          }
+                          else
+                          {
+                            return this.message;
+                          }
+                        },
+        getIcon:        function ()
+                        {
+                          switch(this.statusCode)
+                          {
+                            case '403':
+                              return 'av:not-interested';
+                            case '404':
+                              return 'image:broken-image';
+                            case '500':
+                              return 'icons:error';
+                          }
+                        }
+      }
+    );
+  </script>
+</dom-module>
