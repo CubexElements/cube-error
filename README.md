@@ -1,8 +1,8 @@
-_[Demo and API docs](https://elements.fortifi.it/elements/seed-element)_
+_[Demo and API docs](https://elements.fortifi.it/elements/fort-error)_
 
-##&lt;seed-element&gt;
+##&lt;fort-error&gt;
 
-An element providing a starting point for your own reusable Polymer elements.
+A component used to display server errors within Fortifi.
 
 
 ## Dependencies
@@ -30,4 +30,4 @@ And you can run it via:
     polyserve
 
 Once running, you can preview your element at
-`http://localhost:8080/components/seed-element/`, where `seed-element` is the name of the directory containing it.
+`http://localhost:8080/components/fort-error/`, where `fort-error` is the name of the directory containing it.
